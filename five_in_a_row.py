@@ -25,46 +25,39 @@ def check_win(board, row, col, player):
     return False
 
 def main():
-    board = [['.' for _ in range(15)] for _ in range(15)]
-    current_player = 'X'
-
     while True:
-        print_board(board)
-        print(f"Player {current_player}'s turn. Enter row and column (1-15, e.g., '8 8'): ", end='')
-        move = input().split()
-        if len(move) != 2:
-            print("Invalid input. Please enter two numbers.")
-            continue
-        try:
-            row = int(move[0]) - 1
-            col = int(move[1]) - 1
-        except ValueError:
-            print("Invalid input. Please enter numbers.")
-            continue
-        if row < 0 or row >= 15 or col < 0 or col >= 15:
-            print("Coordinates out of bounds.")
-            continue
-        if board[row][col] != '.':
-            print("That position is already occupied.")
-            continue
+        board = [['.' for _ in range(15)] for _ in range(15)]
+        current_player = 'X'
 
-        board[row][col] = current_player
-        if check_win(board, row, col, current_player):
+        while True:
             print_board(board)
-            print(f"Player {current_player} wins!")
-            while True:
-                choice = input("继续游戏？(y/n): ").strip().lower()
-                if choice == 'y':
-                    board = [['.' for _ in range(15)] for _ in range(15)]
-                    current_player = 'X'
-                    break
-                elif choice == 'n':
-                    break
-                else:
-                    print("无效输入。请输入 y 或 n。")
-            if choice == 'n':
+            print(f"Player {current_player}'s turn. Enter row and column (1-15, e.g., '8 8'): ", end='')
+            move = input().split()
+            if len(move) != 2:
+                print("Invalid input. Please enter two numbers.")
+                continue
+            try:
+                row = int(move[0]) - 1
+                col = int(move[1]) - 1
+            except ValueError:
+                print("Invalid input. Please enter numbers.")
+                continue
+            if row < 0 or row >= 15 or col < 0 or col >= 15:
+                print("Coordinates out of bounds.")
+                continue
+            if board[row][col] != '.':
+                print("That position is already occupied.")
+                continue
+
+            board[row][col] = current_player
+            if check_win(board, row, col, current_player):
+                print_board(board)
+                print(f"Player {current_player} wins!")
                 break
-        current_player = 'O' if current_player == 'X' else 'X'
+            current_player = 'O' if current_player == 'X' else 'X'
+
+        if input("继续游戏？(y/n): ").strip().lower() != 'y':
+            break
 
 if __name__ == "__main__":
     main()

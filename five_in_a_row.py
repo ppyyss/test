@@ -52,7 +52,18 @@ def main():
         if check_win(board, row, col, current_player):
             print_board(board)
             print(f"Player {current_player} wins!")
-            break
+            while True:
+                choice = input("继续游戏？(y/n): ").strip().lower()
+                if choice == 'y':
+                    board = [['.' for _ in range(15)] for _ in range(15)]
+                    current_player = 'X'
+                    break
+                elif choice == 'n':
+                    break
+                else:
+                    print("无效输入。请输入 y 或 n。")
+            if choice == 'n':
+                break
         current_player = 'O' if current_player == 'X' else 'X'
 
 if __name__ == "__main__":

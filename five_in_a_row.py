@@ -53,11 +53,30 @@ def main():
             if check_win(board, row, col, current_player):
                 print_board(board)
                 print(f"Player {current_player} wins!")
-                break
-            current_player = 'O' if current_player == 'X' else 'X'
-
-        if input("继续游戏？(y/n): ").strip().lower() != 'y':
-            break
+                while True:
+                    choice = input("继续游戏？(y/n/u) - y 重新开始/u 选择先手/n 退出：").strip().lower()
+                    if choice == 'y':
+                        board = [['.' for _ in range(15)] for _ in range(15)]
+                        current_player = 'X'
+                        break
+                    elif choice == 'n':
+                        exit()
+                    elif choice == 'u':
+                        print("选择谁先手？(x/o)")
+                        start_choice = input().strip().lower()
+                        if start_choice == 'x':
+                            current_player = 'X'
+                        elif start_choice == 'o':
+                            current_player = 'O'
+                        else:
+                            print("无效输入，默认 X 先手")
+                            current_player = 'X'
+                        board = [['.' for _ in range(15)] for _ in range(15)]
+                        break
+                    else:
+                        print("无效输入，请输入 y、u 或 n。")
+            else:
+                current_player = 'O' if current_player == 'X' else 'X'
 
 if __name__ == "__main__":
     main()
